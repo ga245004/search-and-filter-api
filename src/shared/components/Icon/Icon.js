@@ -43,7 +43,7 @@ const defaultProps = {
 export default function Icon(props) {
     const mergedProps = { ...defaultProps, ...props };
     const { size, contained, containedText, name, text } = mergedProps;
-
+    mergedProps.instance = { ...mergedProps.instance, ...props };
     const IconName = Io5Icon[name] ? Io5Icon[name] : Io5Icon[`Io${name}`] ? Io5Icon[`Io${name}`] : () => <></>
     
     if (size == "sm") {

@@ -5,6 +5,7 @@ const AvatarWrapper = styled.span`
     height : ${props => props.instance.height - 4}px;
     border-radius: 50px;
     background-color: ${props => props.instance.backgroundColor};
+    ${props => props.shift ? `margin-top: ${props.shift};`:``}
     
     border-width: 2px;
     border-color: ${props => props.instance.borderColor};

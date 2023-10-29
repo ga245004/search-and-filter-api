@@ -34,12 +34,12 @@ const defaultProps = {
     instance: {
         backgroundColor: "#272829",
         color: "#FFFFFF",
-        borderWidth : 2,
-        borderColor:  "#272829",
+        borderWidth: 2,
+        borderColor: "#272829",
         borderRadius: 4,
-        horizontalPadding : 16,
-        verticalPadding : 12,
-        fontSize : 13,
+        horizontalPadding: 16,
+        verticalPadding: 12,
+        fontSize: 13,
         letterSpacing: 1.08
     },
     size: "md",
@@ -50,7 +50,7 @@ const defaultProps = {
 export default function Button(props) {
 
     const mergedProps = { ...defaultProps, ...props };
-    const { size, type, color, label, children } = mergedProps;
+    const { size, type, color, label, upperCase, lowerCase, children } = mergedProps;
     if (color != "Default") {
         mergedProps.instance.button = {
             backgroundColor: color,
@@ -58,53 +58,65 @@ export default function Button(props) {
         }
     }
 
-    if(size === "sm"){
-        mergedProps.instance = {...mergedProps.instance, 
+    if (size === "sm") {
+        mergedProps.instance = {
+            ...mergedProps.instance,
             verticalPadding: 9,
-            fontSize : 11,
-            letterSpacing : 0.8
+            fontSize: 11,
+            letterSpacing: 0.8
         }
     }
 
-    if(size === "lg"){
-        mergedProps.instance = {...mergedProps.instance, 
+    if (size === "lg") {
+        mergedProps.instance = {
+            ...mergedProps.instance,
             horizontalPadding: 20,
             verticalPadding: 16,
-            fontSize : 15,
-            letterSpacing : 1.08
+            fontSize: 15,
+            letterSpacing: 1.08
         }
     }
 
     if (type === "Outline") {
         const { backgroundColor, color } = mergedProps.instance;
-        mergedProps.instance = {...mergedProps.instance, 
+        mergedProps.instance = {
+            ...mergedProps.instance,
             backgroundColor: 'transparent',
             color: backgroundColor,
-            borderWidth : 2,
-            borderColor : backgroundColor
+            borderWidth: 2,
+            borderColor: backgroundColor
         }
     }
 
     if (type === "Pill") {
-        mergedProps.instance = {...mergedProps.instance, 
+        mergedProps.instance = {
+            ...mergedProps.instance,
             borderRadius: 50
         }
     }
 
     if (type === "Outline-pill") {
         const { backgroundColor, color } = mergedProps.instance;
-        mergedProps.instance = {...mergedProps.instance, 
+        mergedProps.instance = {
+            ...mergedProps.instance,
             backgroundColor: 'transparent',
             color: backgroundColor,
-            borderWidth : 2,
-            borderColor : backgroundColor,
+            borderWidth: 2,
+            borderColor: backgroundColor,
             borderRadius: 50
         }
+    }
+    let renderedLabel = label;
+    if (renderedLabel && upperCase) {
+        renderedLabel = renderedLabel.toUpperCase();
+    }
+    else if (renderedLabel && lowerCase) {
+        renderedLabel = renderedLabel.toLowerCase();
     }
 
     return (
         <ButtonWrapper {...mergedProps}>
-            <TextWrapper {...mergedProps}>{label}</TextWrapper>
+            <TextWrapper {...mergedProps}>{renderedLabel}</TextWrapper>
             {children}
         </ButtonWrapper>
     )

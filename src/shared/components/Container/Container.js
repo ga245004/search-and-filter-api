@@ -5,7 +5,7 @@ import styled from "styled-components";
 export const Container = styled.div.attrs((props) => {
     const { cornerRadius = 0, fill = false, fillItemSelf = false } = props;
     const { layoutType = 'vertical', alignment = 'top left', verticalGap = 20, horizontalPadding = 20, verticalPadding = 20 } = props;
-    const { strokeColor = "#000000", strokeType = "center", strokeWidth = 0, strokePerSides = "all" } = props;
+    const { strokeColor = "#000000", strokeType = "inside", strokeWidth = 0, strokePerSides = "all" } = props;
     let renderedChildren = props.children;
     if (fill) {
         renderedChildren = React.Children.map(props.children, function (child) {
@@ -21,7 +21,7 @@ export const Container = styled.div.attrs((props) => {
         horizontalPadding,
         verticalPadding,
         strokeColor,
-        strokeType,
+        strokeType : strokeType === "inside" ? "dashed" : strokeType,
         strokeWidth,
         strokePerSides,
         fillItemSelf : fillItemSelf,
@@ -41,6 +41,6 @@ export const Container = styled.div.attrs((props) => {
 
     border-width: ${props => props.strokeWidth}px;
     border-color: ${props => props.strokeColor};
-    border-style: ${props => props.strokeWidth ? 'dashed' : 'hidden'};
+    border-style: ${props => props.strokeWidth ? props.strokeType : 'hidden'};
     
 `;

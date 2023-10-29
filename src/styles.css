@@ -146,7 +146,6 @@ body {
 
 #root {
   font-family: Open Sans, sans-serif;
-  text-align: center;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;

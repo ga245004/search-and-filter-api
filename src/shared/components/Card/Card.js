@@ -32,13 +32,20 @@ const defaultProps = {
     },
     size: "md",
     type: "Contained",
-    color: "Default"
+    color: "Default",
+    light: true
 }
 
 export default function Card(props) {
     const mergedProps = { ...defaultProps, ...props };
-    const { size, type, color, verticalGap, children } = mergedProps;
-    mergedProps.instance = { ...mergedProps.instance, ...props }
+    const { size, type, color, light, children } = mergedProps;
+    mergedProps.instance = { ...mergedProps.instance, ...props };
+
+    if(!light) {
+        mergedProps.instance = {...mergedProps.instance, 
+            backgroundColor: "#000000"
+        }
+    }
 
     return <CardWrapper {...mergedProps}>
         {children}
