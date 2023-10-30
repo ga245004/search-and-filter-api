@@ -1,25 +1,23 @@
 import styled from "styled-components"
+import { executeUseUtilsHooks } from "../../utils/executeUseUtilHooks";
 
 const CardWrapper = styled.div`
-    width: calc(${props =>  props.instance.useFullWidth ? "100%" : `${props.instance.width}px`} - ${props => props.instance.verticalPadding}px - ${props => props.instance.verticalPadding}px);
-    min-height: calc(${props => props.instance.height}px - 25px - 25px);
+    ${executeUseUtilsHooks}
+    min-height: ${props =>  props.useAutoHeight ? 'auto' : ` calc(${props.height}px - 25px - 25px)`};
     background-color:${props => props.instance.backgroundColor};
     margin: 0px;
-    padding: ${props => props.instance.verticalPadding}px ${props => props.instance.horizontalPadding}px;
     border-radius: 20px;
-    gap: ${props => props.instance.verticalGap}px;
     display: flex;
-    flex-direction: column;
+    flex-direction: ${props => props.layoutType === "horizontal" ? "row" : "column"};
     flex-wrap: nowrap;
-    justify-content: flex-start;
+    justify-content: ${props => props.alignment.startsWith("fill ") ? "none" :  props.alignment.startsWith("between ") ? "space-between" :  props.alignment.startsWith("around ") ? "space-around" :  props.alignment.startsWith("bottom ") ? "flex-end" : props.alignment.startsWith("center ") ? "center" : "flex-start"};
+    align-items: ${props => props.alignment.endsWith(" fill") ? "none" :  props.alignment.endsWith(" stretch") ? "stretch" : props.alignment.endsWith(" right") ? "flex-end" : props.alignment.endsWith(" center") ? "center" : "flex-start"};
+    overflow: hidden;
 `;
 
 
 const defaultProps = {
     instance: {
-        verticalGap: 25,
-        width: 200,
-        height: 200,
         color: "#FFFFFF",
         backgroundColor: "#FFFFFF",
         borderWidth: 2,
@@ -30,20 +28,29 @@ const defaultProps = {
         fontSize: 13,
         letterSpacing: 1.08,
     },
+    useAutoLayout: true,
+    useLinearGradient : true,
+    verticalGap: 25,
+    verticalPadding: 25,
+    horizontalPadding: 25,
+    width: 200,
+    height: 200,
     size: "md",
     type: "Contained",
     color: "Default",
-    light: true
+    dark: false,
+    layoutType: "vertical",
+    alignment: "top stretch"
 }
 
 export default function Card(props) {
     const mergedProps = { ...defaultProps, ...props };
-    const { size, type, color, light, children } = mergedProps;
+    const { size, type, color, dark, children, backgroundColor } = mergedProps;
     mergedProps.instance = { ...mergedProps.instance, ...props };
 
-    if(!light) {
+    if(dark) {
         mergedProps.instance = {...mergedProps.instance, 
-            backgroundColor: "#000000"
+            backgroundColor: backgroundColor ? backgroundColor : "#0C111C"
         }
     }
 

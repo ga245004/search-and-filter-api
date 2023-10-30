@@ -51,6 +51,7 @@ export default function Button(props) {
 
     const mergedProps = { ...defaultProps, ...props };
     const { size, type, color, label, upperCase, lowerCase, children } = mergedProps;
+    mergedProps.instance = { ...mergedProps.instance, ...props }
     if (color != "Default") {
         mergedProps.instance.button = {
             backgroundColor: color,

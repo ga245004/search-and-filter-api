@@ -10,8 +10,8 @@ const IconTextWrapper = styled.span`
 `;
 
 const IconWrapper = styled.span`
-    height: calc(40px - 20px);
-    width: ${props => props.text ? "auto" : "calc(40px - 20px)"};
+    height: ${props => props.instance.height - props.instance.padding * 2}px;
+    width: ${props => props.text ? "auto" : `${props.instance.width - props.instance.padding * 2}px`};
     border-radius: 50px;    
     display: inline-flex;
     justify-content: center;
@@ -20,12 +20,13 @@ const IconWrapper = styled.span`
     gap: 5px;
     color: ${props => props.instance.color};
     background-color: ${props => props.instance.backgroundColor};
+    transform: rotate(${props => props.rotate ? props.rotate : 0}deg);
     svg{
-        width: calc(40px - ${props => props.size == "sm" ? 20 + props.instance.padding : 20}px);
-        height: calc(40px - ${props => props.size == "sm" ? 20 + props.instance.padding: 20}px);
+        width: ${props => props.instance.width - props.instance.padding * 2}px;
+        height: ${props => props.instance.height - props.instance.padding * 2}px;
     }
     &:hover {
-        background-color: ${props => props.instance.actionColor};
+        background-color: rgb(0 0 0 / 15%);
     }
 `;
 
@@ -35,6 +36,8 @@ const defaultProps = {
         color: "#000000",
         actionColor : "#F2F2F2",
         padding : 10,
+        height : 40,
+        width: 40,
     },
     contained : false,
     containedText : true,
@@ -45,12 +48,35 @@ export default function Icon(props) {
     const { size, contained, containedText, name, text } = mergedProps;
     mergedProps.instance = { ...mergedProps.instance, ...props };
     const IconName = Io5Icon[name] ? Io5Icon[name] : Io5Icon[`Io${name}`] ? Io5Icon[`Io${name}`] : () => <></>
+
+    const customPad = props.padding ? props.padding : "";
     
-    if (size == "sm") {
+    if (size === "sm") {
+        const { backgroundColor, color } = mergedProps.instance;
+        const {width , height} = props;
+        mergedProps.instance = {
+            ...mergedProps.instance,
+            padding: customPad || customPad === 0 ? customPad : 8,
+            height : width ? width : 30,
+            width: height ? height : 30,
+        }
+    }
+    if (size === "lg") {
         const { backgroundColor, color } = mergedProps.instance;
         mergedProps.instance = {
             ...mergedProps.instance,
-            padding: 5,
+            padding: customPad ? customPad :10,
+            height : 50,
+            width: 50,
+        }
+    }
+    if (size === "xl") {
+        const { backgroundColor, color } = mergedProps.instance;
+        mergedProps.instance = {
+            ...mergedProps.instance,
+            padding: customPad ? customPad :15,
+            height : 60,
+            width: 60,
         }
     }
 

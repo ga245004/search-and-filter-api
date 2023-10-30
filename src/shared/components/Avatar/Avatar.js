@@ -7,14 +7,17 @@ const AvatarWrapper = styled.span`
     background-color: ${props => props.instance.backgroundColor};
     ${props => props.shift ? `margin-top: ${props.shift};`:``}
     
-    border-width: 2px;
+    border-width: ${props => props.instance.borderWidth}px;
     border-color: ${props => props.instance.borderColor};
     border-style: solid;
     position: relative;
     display: inline-flex;
     justify-content: center;
-    align-items: center;
+    align-items: center;    
     box-shadow: inset 0px 0px 0px ${props => props.instance.innerCircleWidth}px ${props => props.instance.innerCircleColor};
+    ${props => props.ringColors ? ` 
+    background-image: linear-gradient(to bottom right, ${props.ringColors.join(",")} );
+    ` : ''}
 `;
 
 
@@ -24,8 +27,15 @@ const Image = styled.span`
     ` : ""}
     background-size: cover;
     background-position: center center;
+    background-color: ${props => props.instance.backgroundColor};
     width: ${props => props.instance.width - 4 - (props.instance.innerCircleWidth * 1.8)}px;
     height : ${props => props.instance.height - 4 - (props.instance.innerCircleWidth * 1.8)}px;
+    ${
+        props => props.noRing ? `
+        width: ${props.instance.width - 0 - (props.instance.innerCircleWidth * 0)}px;
+        height : ${props.instance.height - 0 - (props.instance.innerCircleWidth * 0)}px;
+        `  : ''
+    }
     border-radius: 50px;
     display: inline-flex;
     justify-content: center;
@@ -51,6 +61,7 @@ const defaultProps = {
         height: 60,
         backgroundColor: "#d3d3d34a",
         borderColor: "transparent",
+        borderWidth: 2,
         onlineWidth: 13,
         onlineHeight: 13,
         innerCircleColor: "#FFFFFF",
@@ -65,9 +76,12 @@ const defaultProps = {
 
 export default function Avatar(props) {
     const mergedProps = { ...defaultProps, ...props };
-    const { size, outline, online, image } = mergedProps;
-    if (image) {
-        const imagePath = `${image}`
+    const { size, outline, online, image, filename } = mergedProps;
+    let imagePath = image;
+    if (filename && !imagePath) {
+        imagePath = `${process.env.PUBLIC_URL}/images/${filename}`;
+    }
+    if (imagePath) {
         mergedProps.instance = {
             ...mergedProps.instance,
             imagePath,
@@ -115,6 +129,7 @@ export default function Avatar(props) {
             onlineWidth: 16,
             onlineHeight: 16,
             innerCircleWidth: 3,
+            borderWidth: 3
         }
     }
     if (size === "xl") {
@@ -126,6 +141,14 @@ export default function Avatar(props) {
             onlineWidth: 23,
             onlineHeight: 23,
             onlineBorderWidth: 3,
+            borderWidth: 3
+        }
+    }
+    if (!outline) {
+        const { backgroundColor, color } = mergedProps.instance;
+        mergedProps.instance = {
+            ...mergedProps.instance,
+            innerCircleWidth: 0
         }
     }
 

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 const InputWrapper = styled.input`
+    ${props => props.fillItemSelf ? "flex : 1;" : ""} 
     padding: ${props => props.instance.verticalPadding - 2}px ${props => props.instance.horizontalPadding - 2}px;
     background-color: ${props => props.instance.backgroundColor};
     border-width: 2px;
@@ -21,8 +22,8 @@ const defaultProps = {
         verticalPadding: 12,
         horizontalPadding: 16,
         fontSize: 13,
-        backgroundColor : "#F3F3F3",
-        borderColor : "#F3F3F3",
+        backgroundColor: "#F3F3F3",
+        borderColor: "#F3F3F3",
         borderRadius: 4,
     },
     size: 'md',
@@ -34,6 +35,15 @@ export default function Input(props) {
 
     const mergedProps = { ...defaultProps, ...props };
     const { size, type, pill, children } = mergedProps;
+    if (size === "xs") {
+        mergedProps.instance = {
+            ...mergedProps.instance,
+            fontSize: 11,
+            verticalPadding: 7,
+        }
+    }
+
+
     if (size === "sm") {
         mergedProps.instance = {
             ...mergedProps.instance,
@@ -47,15 +57,15 @@ export default function Input(props) {
             ...mergedProps.instance,
             fontSize: 15,
             verticalPadding: 16,
-            horizontalPadding : 20,
+            horizontalPadding: 20,
         }
     }
 
     if (type === "Outline") {
         mergedProps.instance = {
             ...mergedProps.instance,
-            borderColor : "#000000",
-            backgroundColor : "#FFFFFF",
+            borderColor: "#000000",
+            backgroundColor: "#FFFFFF",
         }
     }
 
@@ -67,8 +77,10 @@ export default function Input(props) {
     }
 
     return (
-        <InputWrapper {...mergedProps}>
-            {children}
-        </InputWrapper>
+        <>
+            <InputWrapper {...mergedProps}>
+
+            </InputWrapper>
+        </>
     )
 }
