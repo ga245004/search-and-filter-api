@@ -1,0 +1,17 @@
+{
+    "complete-from-file.documents": {
+        
+        "javascript completions": {
+            "documentSelectors": [
+                {
+                    "language": "javascript",
+                    "scheme": "file"
+                }
+            ],
+            "files": [
+                "${workspaceFolder}${pathSeparator}src${pathSeparator}Portfolio${pathSeparator}auto-complete.txt",
+            ]
+        },
+    },
+    "complete-from-file.minimalCharacterCount": 2
+}

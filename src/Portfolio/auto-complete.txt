@@ -1,0 +1,4 @@
+$useVerticalLayout
+$verticalGap
+$topPadding
+$minWidth
