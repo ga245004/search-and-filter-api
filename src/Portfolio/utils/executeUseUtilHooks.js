@@ -1,6 +1,8 @@
 import { useAutoLayout } from "./useAutoLayout";
 import { useBackground } from "./useBackground";
+import { useCornerRadius } from "./useCornerRadius";
 import useDropShadow from "./useDropShadow";
+import useInnerShadow from "./useInnerShadow";
 import { useLinearGradient } from "./useLinearGradient";
 
 
@@ -9,7 +11,9 @@ export const useUtilsHooks = {
     $useLinearGradient: useLinearGradient,
     $useAutoLayout: useAutoLayout,
     $useBackground: useBackground,
-    $useDropShadow: useDropShadow
+    $useDropShadow: useDropShadow,
+    $useInnerShadow : useInnerShadow,
+    $useCornerRadius : useCornerRadius
 }
 
 

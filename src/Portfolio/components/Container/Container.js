@@ -87,19 +87,16 @@ const ContainerWrapper_old = styled.div.attrs((props) => {
 
 const ContainerWrapper = styled.div`
     ${executeUseUtilsHooks}
-    border-radius: ${props => props.$isCircle ? "50%" : `${props.$cornerRadius}px`};
-    border-top-left-radius: ${props => props.$isCircle ? "50%" : `${props.$cornerRadiusTopLeft}px`};
-    border-bottom-left-radius: ${props => props.$isCircle ? "50%" : `${props.$cornerRadiusBottomLeft}px`};
-    border-top-right-radius: ${props => props.$isCircle ? "50%" : `${props.$cornerRadiusTopRight}px`};
-    border-bottom-right-radius: ${props => props.$isCircle ? "50%" : `${props.$cornerRadiusBottomRight}px`};
 `;
 
 const defaultProps = {
     $useAutoLayout: true,
     $useBackground: true,
     $useDropShadow : true,
+    $useInnerShadow : true,
+    $useCornerRadius: true,
+    $useLinearGradient : true,
     $useVerticalLayout: true,
-    $useHorizontalLayout: false,
     $cornerRadius: 0,
 }
 

@@ -176,7 +176,6 @@ export function useAutoLayout(props) {
         }
         if ($stackLayout) {
             style += `z-index: ${$stackLayout};`;
-            console.log("stackLayout", style)
         }
 
         style += `;`
